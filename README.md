@@ -2,6 +2,8 @@
 This is the App where you can learn About Earning Apps and understand the working prototypes 
 or machenism about these apps. How these apps will work. 
 
+                ------------------------ Based On JAVA -------------------------
+
 # Source Code 
 You can use this design or codes in your project also. 
 
