@@ -8,4 +8,5 @@
     <string name="register_activity_password_text">Password</string>
     <string name="register_activity_confirm_password_text">Confirm Password</string>
     <string name="register_activity_register_button_text">Register</string>
+    <string name="register_activity_forget_password_text">Forget Password?</string>
 </resources>
