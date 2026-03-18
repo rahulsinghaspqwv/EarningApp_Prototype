@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base Dark Gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="135"
+                android:type="linear"
+                android:startColor="#0F2027"
+                android:centerColor="#203A43"
+                android:endColor="#2C5364"/>
+        </shape>
+    </item>
+    <!-- soft light Glow (Top left) -->
+    <item>
+        <shape android:shape="oval">
+            <size android:width="300dp" android:height="300dp"/>
+            <gradient android:type="radial"
+                android:gradientRadius="200dp"
+                android:startColor="#33FFFFFF"
+                android:endColor="#00FFFFFF"/>
+        </shape>
+    </item>
+    <!-- soft Glow (Bottom Right) -->
+    <item android:gravity="bottom|end">
+        <shape android:shape="oval">
+            <size android:width="250dp" android:height="250dp"/>
+            <gradient android:type="radial"
+                android:gradientRadius="180dp"
+                android:startColor="#22FFFFFF"
+                android:endColor="#00FFFFFF"/>
+        </shape>
+    </item>
+</layer-list>

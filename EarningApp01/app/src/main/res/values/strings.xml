@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">EarningApp01</string>
+    <string name="register_activity_email_sign_up_hint_text">Email</string>
+    <string name="register_activity_password_sign_up_hint_text">Password</string>
+    <string name="register_activity_create_account_text">Create Account</string>
+    <string name="register_activity_username_text">Username</string>
+    <string name="register_activity_email_text">Email</string>
+    <string name="register_activity_password_text">Password</string>
+    <string name="register_activity_confirm_password_text">Confirm Password</string>
+    <string name="register_activity_register_button_text">Register</string>
 </resources>
