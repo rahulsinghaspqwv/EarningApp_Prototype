@@ -9,4 +9,8 @@
     <string name="register_activity_confirm_password_text">Confirm Password</string>
     <string name="register_activity_register_button_text">Register</string>
     <string name="register_activity_forget_password_text">Forget Password?</string>
+    <string name="sign_in_activity_welcome_back_text">Welcome Back</string>
+    <string name="sign_in_activity_login_btn_text">Login</string>
+    <string name="sign_in_activity_do_not_have_an_account_text">Don\'t have an account? Register</string>
+    <string name="register_activity_already_have_an_account_sign_in_text">Already Have an Account? Sign In</string>
 </resources>

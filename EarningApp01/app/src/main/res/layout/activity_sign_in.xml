@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".SignInActivity"
     android:background="@drawable/bg_register">
     <!-- Glass Card Container -->
     <FrameLayout
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="24dp">
-        <!-- Main Glass card -->
+        <!-- Main Glass Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,27 +24,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_activity_create_account_text"
+                android:text="@string/sign_in_activity_welcome_back_text"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"/>
-            <!-- Username -->
-            <EditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/register_activity_username_text"
-                android:inputType="text"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#AAFFFFFF"
-                android:background="@drawable/glass_input"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp"/>
             <!-- Email -->
             <EditText
-                android:id="@+id/etEmail"
+                android:id="@+id/etLoginEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="@string/register_activity_email_text"
@@ -54,9 +42,9 @@
                 android:background="@drawable/glass_input"
                 android:padding="12dp"
                 android:layout_marginBottom="12dp"/>
-            <!--password-->
+            <!-- Password -->
             <EditText
-                android:id="@+id/etPassword"
+                android:id="@+id/etLoginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="@string/register_activity_password_text"
@@ -65,46 +53,44 @@
                 android:textColorHint="#AAFFFFFF"
                 android:background="@drawable/glass_input"
                 android:padding="12dp"
-                android:layout_marginBottom="12dp"/>
-            <!--confirm password-->
-            <EditText
-                android:id="@+id/etConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/register_activity_confirm_password_text"
-                android:inputType="textPassword"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#AAFFFFFF"
-                android:background="@drawable/glass_input"
-                android:padding="12dp"
-                android:layout_marginBottom="20dp"/>
-            <!-- Register Button -->
+                android:layout_marginBottom="10dp"/>
+            <!-- Forgot Password -->
+            <TextView
+                android:id="@+id/tvLoginForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_activity_forget_password_text"
+                android:textColor="#80D8FF"
+                android:textSize="13sp"
+                android:layout_gravity="end"
+                android:layout_marginBottom="16dp"/>
+            <!-- Login Button -->
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/register_activity_register_button_text"
+                android:text="@string/sign_in_activity_login_btn_text"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:background="@drawable/glass_button"/>
             <!-- Progress Bar -->
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/loginProgressBar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:visibility="gone"/>
+            <!-- Register Redirect -->
             <TextView
-                android:id="@+id/tvGoSignIn"
+                android:id="@+id/tvGoRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_activity_already_have_an_account_sign_in_text"
+                android:text="@string/sign_in_activity_do_not_have_an_account_text"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>
     </FrameLayout>
-
 </RelativeLayout>

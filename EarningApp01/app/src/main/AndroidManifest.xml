@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EarningApp01">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>
@@ -22,8 +25,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
