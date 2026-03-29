@@ -71,7 +71,6 @@ public class SignInActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         if (email.isEmpty()){
             etEmail.setError("Enter email First");
-            return;
         }
     }
     private void goToRegister(){

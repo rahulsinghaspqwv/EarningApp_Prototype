@@ -89,7 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
         if (!password.equals(confirmPassword)){
             etConfirmPassword.setError("Password do not match");
             etConfirmPassword.requestFocus();
-            return;
         }
     }
     private void tvAlreadyHaveAnAccount(){
