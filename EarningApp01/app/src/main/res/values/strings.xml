@@ -13,4 +13,16 @@
     <string name="sign_in_activity_login_btn_text">Login</string>
     <string name="sign_in_activity_do_not_have_an_account_text">Don\'t have an account? Register</string>
     <string name="register_activity_already_have_an_account_sign_in_text">Already Have an Account? Sign In</string>
+
+    <string name="products">Products</string>
+    <string name="my_cart">My Cart</string>
+    <string name="product_details">Product Details</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="checkout">Proceed to Checkout</string>
+    <string name="empty_cart">Your cart is empty</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="company_name">Megdeal</string>
 </resources>

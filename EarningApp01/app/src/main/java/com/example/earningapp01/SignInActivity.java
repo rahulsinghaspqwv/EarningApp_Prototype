@@ -63,7 +63,6 @@ public class SignInActivity extends AppCompatActivity {
         }
         if (password.isEmpty()){
             etPassword.setError("Password required");
-            return;
         }
     }
     // Forget password
