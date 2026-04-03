@@ -1,11 +1,15 @@
 package com.example.earningapp01.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.earningapp01.CartManager;
 import com.example.earningapp01.Model.Product;
+import com.example.earningapp01.ProductDetailActivity;
 import com.example.earningapp01.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,25 +42,47 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.name.setText(product.getName());
-        holder.price.setText(product.getPrice());
-        Glide.with(context).load(product.getImageUrl()).into(holder.image);
+        holder.tvProductName.setText(product.getName());
+        holder.tvProductPrice.setText("rs" + String.format("%.2f", product.getPrice()));
+        holder.tvProductDescription.setText(product.getDescription());
+        // Load image using Picasso
+        Picasso.get().load(product.getImageUrl()).placeholder(R.drawable.placeholder_image).error(R.drawable.error_image).into(holder.ivProductImage);
+        holder.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartManager.addToCart(product);
+                Toast.makeText(context, product.getName() + " added to cart", Toast.LENGTH_LONG).show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("product", product);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     public int getItemCount(){
         return productList.size();
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name, price;
-        ImageView image;
-        public ViewHolder(@NonNull View itemView){
+    public static class ProductViewHolder extends RecyclerView.ViewHolder{
+        ImageView ivProductImage;
+        TextView tvProductName, tvProductPrice, tvProductDescription;
+        Button btnAddToCart;
+        public ProductViewHolder(@NonNull View itemView){
             super(itemView);
-            name = itemView.findViewById(R.id.productName);
-            price = itemView.findViewById(R.id.productPrice);
-            image = itemView.findViewById(R.id.productImage);
+            ivProductImage = itemView.findViewById(R.id.ivProductImage);
+            tvProductName = itemView.findViewById(R.id.tvProductName);
+            tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
+            tvProductDescription = itemView.findViewById(R.id.tvProductDescription);
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }
     }
 }

@@ -39,34 +39,47 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <!-- Empty Cart Message -->
+    <!-- Cart Items -->
     <LinearLayout
         android:id="@+id/layoutEmptyCart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/ic_empty_cart"
-            android:alpha="0.6"/>
+            android:alpha="0.6"
+            android:src="@drawable/ic_empty_cart" />
+
+        <TextView
+            android:id="@+id/tvEmptyCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Your cart is empty"
+            android:textColor="#666666"
+            android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Add some products to get started"
-            android:textSize="14sp"
-            android:textColor="#999999"/>
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
         <Button
             android:id="@+id/btnContinueShopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Continue Shopping"
-            android:backgroundTint="#4CAF50"/>
+            android:backgroundTint="#4CAF50"
+            android:text="Continue Shopping" />
     </LinearLayout>
-    <!-- Cart Items -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"

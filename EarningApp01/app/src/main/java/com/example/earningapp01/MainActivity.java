@@ -1,6 +1,10 @@
 package com.example.earningapp01;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -8,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.earningapp01.Adapter.ProductAdapter;
@@ -25,15 +31,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<Product> productList;
-    ProductAdapter adapter;
+    private ProductAdapter productAdapter;
+    List<Product> productList;
+    private ProgressBar progressBar;
+    private TextView tvCartCount;
+    private CartManager cartManager;
+    private RequestQueue requestQueue;
+
+    // Database connection details
+    private static final String URL_GET_PRODUCTS = "https://yourdomain.com/get_products.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,64 +60,77 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        productList = new ArrayList<>();
-        adapter = new ProductAdapter(this, productList);
-        recyclerView.setAdapter(adapter);
-        fetchProductsFromDatabase(); // IMPORTANT
+        initViews();
+        setupRecyclerView();
+        fetchProducts();
+        findViewById(R.id.btnCart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
 
     }
-    private void fetchProductsFromDatabase() {
-        String url = "https://megdeal.infinityfreeapp.com/getProducts.php?api=1";
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            JSONArray array = new JSONArray(response);
-
-                            for (int i = 0; i < array.length(); i++) {
-
-                                JSONObject obj = array.getJSONObject(i);
-
-                                Product product = new Product(
-                                        obj.getString("name"),
-                                        obj.getString("price"),
-                                        obj.getString("image")
-                                );
-
-                                productList.add(product);
-                            }
-
-                            adapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-
+    private void initViews(){
+        recyclerView = findViewById(R.id.recycleView);
+        progressBar = findViewById(R.id.progressBar);
+        tvCartCount = findViewById(R.id.tvCartCount);
+        cartManager = CartManager.getInstance(this);
+        requestQueue = Volley.newRequestQueue(this);
+        productList = new ArrayList<>();
+    }
+    private void setupRecyclerView(){
+        productAdapter = new ProductAdapter(this, productList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(productAdapter);
+    }
+    private void fetchProducts(){
+        progressBar.setVisibility(View.VISIBLE);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_GET_PRODUCTS, null, new Response.Listener<JSONArray>() {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("User-Agent", "Mozilla/5.0");
-                headers.put("Accept", "application/json");
-                return headers;
+            public void onResponse(JSONArray jsonArray) {
+                progressBar.setVisibility(View.GONE);
+                parseProducts(jsonArray);
             }
-        };
-
-        queue.add(request);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "Error Fetching products: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+    private void parseProducts(JSONArray jsonArray){
+        try {
+            for (int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Product product = new Product();
+                product.setId(jsonObject.getInt("id"));
+                product.setName(jsonObject.getString("name"));
+                product.setDescription(jsonObject.getString("description"));
+                product.setPrice(jsonObject.getDouble("price"));
+                product.setImageUrl(jsonObject.getString("image_url"));
+                product.setCategory(jsonObject.getString("category"));
+                productList.add(product);
+            }
+            productAdapter.notifyDataSetChanged();
+        } catch (JSONException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Error parsing data", Toast.LENGTH_SHORT).show();
+        }
+    }
+    protected void onResume(){
+        super.onResume();
+        updateCartCount();
+    }
+    private void updateCartCount(){
+        int count = cartManager.getCartCount();
+        if (count > 0){
+            tvCartCount.setVisibility(View.VISIBLE);
+            tvCartCount.setText(String.valueOf(count));
+        } else {
+            tvCartCount.setVisibility(View.GONE);
+        }
     }
 }
