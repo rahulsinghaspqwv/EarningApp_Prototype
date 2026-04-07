@@ -13,7 +13,7 @@ I am going to add more features and Imersive designs in future.
 - I am adding the product section in this App also like ecommerce Apps.
 - Here's the Screenshot of Testing Demo with full source code -:
 - <img width ="1920" height ="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Screenshot_2026-04-07_162810_working_on_earning_01_project.png" />
-- <img width="720" height="1280" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Screenshot_20260407_163038.png"/>
+- <img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Screenshot_20260407_163038.png"/>
 
 ### Install Instructions :- 
 - just clone the repository with :
