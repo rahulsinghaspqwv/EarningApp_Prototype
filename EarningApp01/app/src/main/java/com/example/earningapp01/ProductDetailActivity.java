@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,20 +35,29 @@ public class ProductDetailActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         initViews();
         // Get Product from intent
         product = (Product) getIntent().getSerializableExtra("product");
         cartManager = CartManager.getInstance(this);
 
         displayProductDetails();
-        btnAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cartManager.addToCart(product);
-                Toast.makeText(ProductDetailActivity.this, " added to cart", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+//        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                cartManager.addToCart(product);
+//                Toast.makeText(ProductDetailActivity.this, " added to cart", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        });
     }
     private void initViews(){
         ivProductImage = findViewById(R.id.ivProductImage);
