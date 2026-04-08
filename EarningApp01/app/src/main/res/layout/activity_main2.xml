@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aapka Wallet Balance"
+        android:textSize="18sp"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:id="@+id/tv_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rs 0.00"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="#4CAF50"
+        android:layout_marginTop="16dp"/>
+    <Button
+        android:id="@+id/btn_offerWall"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Apps Install karke kamao "
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#FF5722"/>
+    <Button
+        android:id="@+id/btn_withdraw"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="paytm Mein Nikalo"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#2196F3"/>
+</LinearLayout>

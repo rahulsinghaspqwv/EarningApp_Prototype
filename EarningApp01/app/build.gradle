@@ -49,4 +49,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.code.gson:gson:2.11.0'
+
+    implementation libs.paytm.appinvoke.sdk
+    // paytm payout ke liye [citation:1]
+    // Isme Offer wall SDK add karna mat bhoolna jab aap kisi Network (e.g., Unity/ Payment wall) se approve ho jao
 }
