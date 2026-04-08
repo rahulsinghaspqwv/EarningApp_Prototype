@@ -20,5 +20,9 @@ I am going to add more features and Imersive designs in future.
   ```bash
   git clone https://github.com/rahulsinghaspqwv/EarningApp_Prototype.git
   ```
+  # Earning Section
+  I updated with Earning Section in MainActivity2 inside the App.
+  <img width="1920" height="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Screenshot%202026-04-08%20170241.png"/>
+  #
   - Stay tune for further Updates. 
 
