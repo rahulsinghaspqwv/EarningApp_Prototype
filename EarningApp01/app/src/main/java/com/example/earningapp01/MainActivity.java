@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
 
     // Database connection details
-    private static final String URL_GET_PRODUCTS = "http://192.168.1.33/get_products.php";
+    private static final String URL_GET_PRODUCTS = "http://192.168.1.35/get_products.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
