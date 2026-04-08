@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,9 +21,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity2 extends AppCompatActivity {
     private TextView tvBalance;
@@ -165,6 +172,64 @@ public class MainActivity2 extends AppCompatActivity {
     }
     private void startPayment(String token, String orderId, double amount){
         String callbackUrl = "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=" + orderId;
+        PaytmPGService Service = PaytmPGService.getStagingService(null);
+        HashMap<String, String> paramMap = new HashMap<>();
+        paramMap.put("MID", "YOUR_MERCHANT_ID");
+        paramMap.put("ORDER_ID", orderId);
+        paramMap.put("CUST_ID", userToken);
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("TXN_AMOUNT", String.valueOf(amount));
+        paramMap.put("WEBSITE", "DEFAULT");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+        paramMap.put("CALLBACK_URL", callbackUrl);
+        paramMap.put("CHECKSUMHASH", token); // Created by Server
 
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Service.initialize(Order, null);
+        Service.startPaymentTransaction(this, true, true, new PaytmPaymentTransactionCallback() {
+            @Override
+            public void onTransactionResponse(@Nullable Bundle bundle) {
+                // Payment Success
+                Toast.makeText(MainActivity2.this, "Payout Successful!", Toast.LENGTH_SHORT).show();
+                // Now Balance should be 0 or update
+                currentBalance = 0;
+                tvBalance.setText("rs 0.00");
+            }
+
+            @Override
+            public void networkNotAvailable() {
+                Toast.makeText(MainActivity2.this, "Network not available", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onErrorProceed(String s) {
+
+            }
+
+            @Override
+            public void clientAuthenticationFailed(String s) {
+
+            }
+
+            @Override
+            public void someUIErrorOccurred(String s) {
+
+            }
+
+            @Override
+            public void onErrorLoadingWebPage(int i, String s, String s1) {
+
+            }
+
+            @Override
+            public void onBackPressedCancelTransaction() {
+
+            }
+
+            @Override
+            public void onTransactionCancel(String s, Bundle bundle) {
+
+            }
+        });
     }
 }
