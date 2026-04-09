@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Megdeal_Earning">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WithdrawActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OfferWallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
