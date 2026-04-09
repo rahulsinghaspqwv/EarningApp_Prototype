@@ -1,6 +1,9 @@
 package com.example.megdeal_earning;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.se.omapi.Session;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.megdeal_earning.utils.SessionManager;
+
 public class SplashActivity extends AppCompatActivity {
+
+    private SessionManager sessionManager;
+    private static final int SPLASH_TIMEOUT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +28,18 @@ public class SplashActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        sessionManager = new SessionManager(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (sessionManager.isLoggedIn()){
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                }
+                finish();
+            }
+        }, SPLASH_TIMEOUT);
     }
 }
