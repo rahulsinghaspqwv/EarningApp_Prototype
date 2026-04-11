@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
     private void shareReferralCode(){
-        String referralCode = sessionManager.getUserId().substring(0, 6).toUpperCase();
-        String shareText = "Join me on MegDeal Earning and earn real money by installing apps?\n" + "Use my referral code: " + referralCode + "\n" + "Download now: https://play.google.com/store/apps/details?id=com.megdealearning";
+//        String referralCode = sessionManager.getUserId().substring(0, 6).toUpperCase();
+        String shareText = "Join me on MegDeal Earning and earn real money by installing apps?\n" + "Use my referral code: " + "\n" + "Download now: https://play.google.com/store/apps/details?id=com.MegdealEarning";
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);

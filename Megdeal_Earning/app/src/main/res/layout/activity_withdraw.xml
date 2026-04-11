@@ -75,9 +75,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount (rs)"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:prefixText="rs ">
+                    android:hint="Amount (₹)"
+                    app:prefixText="₹ ">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_amount"
                         android:layout_width="match_parent"
@@ -136,7 +135,8 @@
                     android:layout_height="40dp"
                     android:text="Change Paytm Number"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"/>
+                    android:background="@drawable/bg_button_secondary"
+                    android:padding="5dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
