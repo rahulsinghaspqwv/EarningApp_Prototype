@@ -1,14 +1,43 @@
 package com.example.megdeal_earning;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.MenuHost;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.megdeal_earning.utils.Constants;
+import com.example.megdeal_earning.utils.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
+
+    private TextView tvBalance, tvTodayEarning, tvTotalEarned, tvTotalWithdrawn;
+    private Button btnOfferWall, btnWithdraw, btnHistory, btnRefer;
+    private SessionManager sessionManager;
+    private DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +49,99 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        sessionManager = new SessionManager(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        tvBalance = findViewById(R.id.tv_balance);
+        tvTodayEarning = findViewById(R.id.tv_today_earning);
+        tvTotalEarned = findViewById(R.id.tv_total_earned);
+        tvTotalWithdrawn = findViewById(R.id.tv_total_withdrawn);
+        btnOfferWall = findViewById(R.id.btn_offerWall);
+        btnWithdraw = findViewById(R.id.btn_withdraw);
+        btnHistory = findViewById(R.id.btn_history);
+        btnRefer = findViewById(R.id.btn_refer);
+        // Load user data
+        loadUserData();
+        btnOfferWall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, OfferWallActivity.class));
+            }
+        });
+        btnWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, WithdrawActivity.class));
+            }
+        });
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+            }
+        });
+        btnRefer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareReferralCode();
+            }
+        });
+    }
+    private void loadUserData(){
+        String userId = sessionManager.getUserId();
+        String url = Constants.GET_BALANCE_URL + "?user_id=" + userId;
+        Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    if (jsonObject.getBoolean("success")){
+                        double balance = jsonObject.getDouble("balance");
+                        double todayEarning = jsonObject.getDouble("today_earning");
+                        double totalEarned = jsonObject.getDouble("total_earned");
+                        double totalWithdrawn = jsonObject.getDouble("total_withdrawn");
+                        tvBalance.setText("rs " + df.format(balance));
+                        tvTodayEarning.setText("Today: rs " + df.format(todayEarning));
+                        tvTotalEarned.setText("rs " + df.format(totalEarned));
+                        tvTotalWithdrawn.setText("rs " + df.format(totalWithdrawn));
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(MainActivity.this, "Failed to load Data", Toast.LENGTH_SHORT).show();
+            }
+        };
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, responseListener, errorListener);
+        Volley.newRequestQueue(this).add(request);
+    }
+    private void shareReferralCode(){
+        String referralCode = sessionManager.getUserId().substring(0, 6).toUpperCase();
+        String shareText = "Join me on MegDeal Earning and earn real money by installing apps?\n" + "Use my referral code: " + referralCode + "\n" + "Download now: https://play.google.com/store/apps/details?id=com.megdealearning";
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    public boolean onOptionItemSelected(@NonNull MenuItem item){
+        if (item.getItemId()==R.id.action_logout){
+            sessionManager.logout();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    protected void onResume(){
+        super.onResume();
+        loadUserData();
     }
 }
