@@ -1,5 +1,6 @@
 package com.example.megdeal_earning;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -132,16 +133,29 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public boolean onOptionItemSelected(@NonNull MenuItem item){
-        if (item.getItemId()==R.id.action_logout){
+        int id = item.getItemId();
+        if (id==R.id.action_profile){
+            // Open Profile Activity
+            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id==R.id.action_share) {
+            shareReferralCode();
+            return true;
+        } else if (id==R.id.action_about) {
+            showAboutDialog();
+            return true;
+        } else if (id==R.id.action_logout) {
             sessionManager.logout();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
     protected void onResume(){
         super.onResume();
         loadUserData();
+    }
+    private void showAboutDialog(){
+        new AlertDialog.Builder(this).setTitle("About MegDeal Earning").setMessage("MegDeal Earning v1.0\n\nEarn Money by completing tasks and installing apps. \n\nContact: support@MegDeal.com").setPositiveButton("OK", null).show();
     }
 }
