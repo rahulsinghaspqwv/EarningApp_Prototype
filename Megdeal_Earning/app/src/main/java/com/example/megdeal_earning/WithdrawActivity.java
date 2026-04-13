@@ -58,6 +58,12 @@ public class WithdrawActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         tvAvailableBalance = findViewById(R.id.tv_available_balance);
         tvPaytmNumber = findViewById(R.id.tv_paytm_number);
