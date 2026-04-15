@@ -1,4 +1,4 @@
-package Adapters;
+package com.example.megdeal_earning.Adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

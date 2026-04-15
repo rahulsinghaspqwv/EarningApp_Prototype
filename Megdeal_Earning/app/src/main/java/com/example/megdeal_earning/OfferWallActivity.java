@@ -19,21 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.megdeal_earning.Models.Offer;
 import com.example.megdeal_earning.utils.Constants;
 import com.example.megdeal_earning.utils.SessionManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapters.OfferAdapter;
+import com.example.megdeal_earning.Adapters.OfferAdapter;
 
 public class OfferWallActivity extends AppCompatActivity {
     private RecyclerView rvOffers;

@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapters.TransactionAdapter;
+import com.example.megdeal_earning.Adapters.TransactionAdapter;
 
 public class HistoryActivity extends AppCompatActivity {
     private RecyclerView rvTransactions;

@@ -1,4 +1,4 @@
-package Adapters;
+package com.example.megdeal_earning.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
