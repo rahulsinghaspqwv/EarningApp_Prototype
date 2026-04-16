@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
     private void shareReferralCode(){
-//        String referralCode = sessionManager.getUserId().substring(0, 6).toUpperCase();
-        String shareText = "Join me on MegDeal Earning and earn real money by installing apps?\n" + "Use my referral code: " + "\n" + "Download now: https://play.google.com/store/apps/details?id=com.MegdealEarning";
+        String referralCode = sessionManager.getReferralCode();
+        String shareText = "Join me on MegDeal Earning and earn real money by installing apps?\n" + "Use my referral code: " + referralCode + "\n" + "Download now: https://play.google.com/store/apps/details?id=com.MegdealEarning";
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-    public boolean onOptionItemSelected(@NonNull MenuItem item){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();
         if (id==R.id.action_profile){
             // Open Profile Activity
@@ -146,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id==R.id.action_logout) {
             sessionManager.logout();
-            startActivity(new Intent(this, LoginActivity.class));
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

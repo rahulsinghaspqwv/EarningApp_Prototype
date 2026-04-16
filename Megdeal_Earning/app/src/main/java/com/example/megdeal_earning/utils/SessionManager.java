@@ -12,20 +12,21 @@ public class SessionManager {
         pref=context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
     }
-    public void createLoginSession(String userId, String name, String mobile, String paytmNumber){
+    public void createLoginSession(String userId, String name, String mobile, String paytmNumber, String referralCode){
         editor.putBoolean(Constants.KEY_IS_LOGGED_IN, true);
         editor.putString(Constants.KEY_USER_ID, userId);
         editor.putString(Constants.KEY_USER_NAME, name);
         editor.putString(Constants.KEY_USER_MOBILE, mobile);
         editor.putString(Constants.KEY_USER_PAYTM, paytmNumber);
-        editor.commit();
+        editor.putString("referral_code", referralCode);
+        editor.apply();
     }
     public boolean isLoggedIn(){
         return pref.getBoolean(Constants.KEY_IS_LOGGED_IN, false);
     }
     public void logout(){
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
     public String getUserId(){
         return pref.getString(Constants.KEY_USER_ID, "");
@@ -36,5 +37,8 @@ public class SessionManager {
     public void updatePaytmNumber(String paytmNumber){
         editor.putString(Constants.KEY_USER_PAYTM, paytmNumber);
         editor.commit();
+    }
+    public String getReferralCode(){
+        return pref.getString("referral_code", "");
     }
 }

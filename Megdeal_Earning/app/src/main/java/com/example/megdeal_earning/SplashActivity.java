@@ -30,6 +30,10 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
