@@ -2,6 +2,7 @@ package com.example.megdeal_earning;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -108,7 +109,16 @@ public class RegisterActivity extends AppCompatActivity {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(RegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                volleyError.printStackTrace();
+                if (volleyError.networkResponse != null){
+                    String response = new String(volleyError.networkResponse.data);
+                    Log.e("VOLLEY_ERROR", "Code: "+volleyError.networkResponse.statusCode);
+                    Log.e("VOLLEY_ERROR", "Response: "+response);
+                } else {
+                    Log.e("VOLLEY_ERROR", "Error: "+volleyError.toString());
+                }
+                Toast.makeText(RegisterActivity.this, "Error: "+volleyError.toString(), Toast.LENGTH_SHORT).show();
             }
         };
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.REGISTER_URL, params, responseListener, errorListener);
