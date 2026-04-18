@@ -1,6 +1,7 @@
 package com.example.megdeal_earning;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -179,6 +180,9 @@ public class OfferWallActivity extends AppCompatActivity {
                     boolean success = jsonObject.getBoolean("success");
                     if (success){
                         Toast.makeText(OfferWallActivity.this, "Congratulations! You earned rs" + offer.getReward(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(OfferWallActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         finish();
                     } else {
                         String message = jsonObject.getString("message");

@@ -3,6 +3,7 @@ package com.example.megdeal_earning;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.MenuHost;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnOfferWall, btnWithdraw, btnHistory, btnRefer;
     private SessionManager sessionManager;
     private DecimalFormat df = new DecimalFormat("#.##");
+    boolean isFirstLoad = true;
+
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btnWithdraw = findViewById(R.id.btn_withdraw);
         btnHistory = findViewById(R.id.btn_history);
         btnRefer = findViewById(R.id.btn_refer);
+        swipeRefresh=findViewById(R.id.swipeRefresh);
         // Load user data
         loadUserData();
         btnOfferWall.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
                 shareReferralCode();
             }
         });
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadUserData();
+            }
+        });
+        swipeRefresh.setRefreshing(true);
+        loadUserData();
     }
     private void loadUserData(){
         String userId = sessionManager.getUserId();
@@ -95,12 +109,13 @@ public class MainActivity extends AppCompatActivity {
         Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
+                Log.e("LOAD_RESPONSE", jsonObject.toString());
                 try {
                     if (jsonObject.getBoolean("success")){
-                        double balance = jsonObject.getDouble("balance");
-                        double todayEarning = jsonObject.getDouble("today_earning");
-                        double totalEarned = jsonObject.getDouble("total_earned");
-                        double totalWithdrawn = jsonObject.getDouble("total_withdrawn");
+                        double balance = jsonObject.optDouble("balance", 0);
+                        double todayEarning = jsonObject.optDouble("today_earning", 0);
+                        double totalEarned = jsonObject.optDouble("total_earned",0);
+                        double totalWithdrawn = jsonObject.optDouble("total_withdrawn", 0);
                         tvBalance.setText("rs " + df.format(balance));
                         tvTodayEarning.setText("Today: rs " + df.format(todayEarning));
                         tvTotalEarned.setText("rs " + df.format(totalEarned));
@@ -109,12 +124,14 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
+                swipeRefresh.setRefreshing(false);
             }
         };
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(MainActivity.this, "Failed to load Data", Toast.LENGTH_SHORT).show();
+                swipeRefresh.setRefreshing(false);
             }
         };
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, responseListener, errorListener);
@@ -156,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
     }
     protected void onResume(){
         super.onResume();
+        if (!isFirstLoad){
+            loadUserData();
+        }
+        isFirstLoad = false;
     }
     private void showAboutDialog(){
         new AlertDialog.Builder(this).setTitle("About MegDeal Earning").setMessage("MegDeal Earning v1.0\n\nEarn Money by completing tasks and installing apps. \n\nContact: support@MegDeal.com").setPositiveButton("OK", null).show();

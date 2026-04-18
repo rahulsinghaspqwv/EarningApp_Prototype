@@ -43,5 +43,12 @@ public class SessionManager {
         editor.putString(Constants.KEY_USER_PAYTM, paytmNumber);
         editor.commit();
     }
+    public void updateBalance(double balance){
+        editor.putFloat("user_balance", (float) balance);
+        editor.apply();
+    }
+    public double getBalance(){
+        return pref.getFloat("user_balance", 0);
+    }
 
 }
