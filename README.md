@@ -39,7 +39,7 @@ I built a different app and put it inside that project named Megdeal_Earning , I
 
 # Support 
 You Can support me by buying a coffiee for ₹51/- ✌️
-<a href="https://www.buymeacoffee.com/geantworld" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
 
   - Stay tune for further Updates.
   - I Added the transaction API in Future and Withdraw money feature Also.
