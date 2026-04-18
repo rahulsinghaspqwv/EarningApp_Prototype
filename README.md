@@ -33,8 +33,10 @@ I built a different app and put it inside that project named Megdeal_Earning , I
 - MOTO X Play (XT1562) * Using Android 10 with custom ROM (Oreo) , Using Android 7.0 with Stock ROM (Android Nougat)
 - SAMSUNG GALAXY J7 PRO * Using Adnroid 9 (Pie)
 - SAMSUNG GALAXY J2 PRO * Using Android 6.2 (Jellybean)
+  
 <img width="1920" height="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/main_activity.png"/>
-<img width="1920" height="1080" alt="Screenshot" src"https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/withdraw_activity.png"/>
+<img width="1920" height="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/withdraw_activity.png"/>
+
 #
   - Stay tune for further Updates.
   - I Added the transaction API in Future and Withdraw money feature Also.
