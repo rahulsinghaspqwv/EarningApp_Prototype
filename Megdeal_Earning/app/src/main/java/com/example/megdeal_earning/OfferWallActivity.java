@@ -2,6 +2,7 @@ package com.example.megdeal_earning;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.megdeal_earning.Adapters.OfferAdapter;
 
@@ -95,29 +98,68 @@ public class OfferWallActivity extends AppCompatActivity {
             params.put("action", "start");
         } catch (JSONException e){e.printStackTrace();}
 
+        // DEBUG (Optional)
+        Log.e("REQUEST", params.toString());
+
         // Open the offer URL (or trigger SDK)
         Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 // Offer Started Successfully
-                Toast.makeText(OfferWallActivity.this, "Opening: " + offer.getTitle(), Toast.LENGTH_SHORT).show();
-                // Simulate offer completion after 3 seconds (for demo only)
-                new android.os.Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        completeOffer(offer);
+//                Toast.makeText(OfferWallActivity.this, "Opening: " + offer.getTitle(), Toast.LENGTH_SHORT).show();
+//                // Simulate offer completion after 3 seconds (for demo only)
+//                new android.os.Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        completeOffer(offer);
+//                    }
+//                }, 3000);
+                try {
+                    Log.e("RESPONSE", jsonObject.toString());
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success){
+                        Toast.makeText(OfferWallActivity.this, "Opening: "+offer.getTitle(), Toast.LENGTH_SHORT).show();
+                        //for demo: simulate completion after 10 seconds
+                        new android.os.Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("COMPLETE_CALL", "completeOffer triggered");
+                                completeOffer(offer);
+                            }
+                        }, 10000);
+                    } else {
+                        String message = jsonObject.getString("message");
+                        Toast.makeText(OfferWallActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
-                }, 3000);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
         };
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(OfferWallActivity.this, "Failed to start offer", Toast.LENGTH_SHORT).show();
+                // Even if server tracking fails, still allow user to open offer
+                volleyError.printStackTrace();
+                if (volleyError.networkResponse != null){
+                    String response = new String(volleyError.networkResponse.data);
+                    Log.e("VOLLEY ERROR", "Code: " + volleyError.networkResponse.statusCode);
+                    Log.e("VOLLEY ERROR", "Response: "+ response);
+                } else {
+                    Log.e("VOLLEY ERROR", "Error: "+volleyError.toString());
+                }
+                Toast.makeText(OfferWallActivity.this, "Error: "+volleyError.toString(), Toast.LENGTH_SHORT).show();
             }
         };
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, responseListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, responseListener, errorListener){
+            public Map<String, String> getHeaders(){
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
         Volley.newRequestQueue(this).add(request);
+
     }
     private void completeOffer(Offer offer){
         // Send completion to server
@@ -151,11 +193,15 @@ public class OfferWallActivity extends AppCompatActivity {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                String errorMsg = "Failed to process reward";
-                if (volleyError.networkResponse != null){
-                    errorMsg = "Error: " + volleyError.networkResponse.statusCode;
+                volleyError.printStackTrace();
+                if (volleyError.networkResponse != null&&volleyError.networkResponse.data!=null){
+                    String response = new String(volleyError.networkResponse.data);
+                    Log.e("VOLLEY ERROR", "Code:"+volleyError.networkResponse.statusCode);
+                    Log.e("VOLLEY ERROR", "Response: "+ response);
+                } else {
+                    Log.e("VOLLEY ERROR", "Error: "+volleyError.toString());
                 }
-                Toast.makeText(OfferWallActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(OfferWallActivity.this, "Network Error while completing offer", Toast.LENGTH_SHORT).show();
             }
         };
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, responseListener, errorListener);
