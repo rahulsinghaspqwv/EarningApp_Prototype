@@ -44,6 +44,5 @@ You Can support me by buying a coffiee for ₹51/- ✌️
   - Stay tune for further Updates.
   - I Added the transaction API in Future and Withdraw money feature Also.
 # Devices Screenshot 
-<img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/update_main_activity_with_balance_fetch_testing.jpg"/>
-<img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/updated_register_activity_with_php_backend_testing.jpg"/>
+<img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/update_main_activity_with_balance_fetch_testing.jpg"/> <img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/updated_register_activity_with_php_backend_testing.jpg"/>
 
