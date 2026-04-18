@@ -3,6 +3,8 @@ package com.example.megdeal_earning.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.megdeal_earning.LoginActivity;
+
 public class SessionManager {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -31,6 +33,9 @@ public class SessionManager {
     public String getUserId(){
         return pref.getString(Constants.KEY_USER_ID, "");
     }
+    public String getReferralCode(){
+        return pref.getString("referral_code", "");
+    }
     public String getUserName(){return pref.getString(Constants.KEY_USER_NAME, "");}
     public String getUserMobile(){return pref.getString(Constants.KEY_USER_MOBILE, "");}
     public String getUserPaytm(){return pref.getString(Constants.KEY_USER_PAYTM, "");}
@@ -38,7 +43,5 @@ public class SessionManager {
         editor.putString(Constants.KEY_USER_PAYTM, paytmNumber);
         editor.commit();
     }
-    public String getReferralCode(){
-        return pref.getString("referral_code", "");
-    }
+
 }

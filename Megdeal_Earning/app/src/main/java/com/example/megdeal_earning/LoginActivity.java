@@ -81,10 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (jsonObject.getBoolean("success")){
                         JSONObject user = jsonObject.getJSONObject("user");
+                        String userId = user.getString("id");
+                        String name = user.getString("name");
+                        String mobile = user.getString("mobile");
+                        String paytm = user.getString("paytm_number");
                         String referralCode = user.optString("referral_code", "");
-                        sessionManager.createLoginSession(user.getString("id"), user.getString("name"), user.getString("mobile"), user.getString("paytm_number"), referralCode);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        sessionManager.createLoginSession(userId, name, mobile, paytm, referralCode);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                         finish();
+                        Toast.makeText(LoginActivity.this, referralCode, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

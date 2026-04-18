@@ -16,7 +16,7 @@ import com.example.megdeal_earning.utils.SessionManager;
 public class SplashActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
-    private static final int SPLASH_TIMEOUT = 2000;
+    private static final int SPLASH_TIMEOUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +28,14 @@ public class SplashActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         sessionManager = new SessionManager(this);
-        if (sessionManager.isLoggedIn()){
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (sessionManager.isLoggedIn()){
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 }

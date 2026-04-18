@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
     }
     protected void onResume(){
         super.onResume();
-        loadUserData();
     }
     private void showAboutDialog(){
         new AlertDialog.Builder(this).setTitle("About MegDeal Earning").setMessage("MegDeal Earning v1.0\n\nEarn Money by completing tasks and installing apps. \n\nContact: support@MegDeal.com").setPositiveButton("OK", null).show();
