@@ -28,11 +28,11 @@ I built a different app and put it inside that project named Megdeal_Earning , I
 - The API of the whole app which build in local environment server using PHP and the whole PHP files is available on my another repository called megdeal_api https://github.com/rahulsinghaspqwv/megdeal-api , You can download the whole php file from this link.
 - I Tested my App on Physical and Virtual Both Devices
   # Tested Devices 
-- NARZO 50A (RMX3430) * Using Android 13 (Tiramisu)
-- NOTHING Phone 2A (A142) * Using Android 15 (Vanilla Ice Cream)
-- MOTO X Play (XT1562) * Using Android 10 with custom ROM (Oreo) , Using Android 7.0 with Stock ROM (Android Nougat)
-- SAMSUNG GALAXY J7 PRO * Using Adnroid 9 (Pie)
-- SAMSUNG GALAXY J2 PRO * Using Android 6.2 (Jellybean)
+- NARZO 50A (RMX3430) * Using Android 13 (Tiramisu), Using Android 11 (Red Velvet Cake)
+- NOTHING Phone 2A (A142) * Using Android 15 (Vanilla Ice Cream), Using Android 14 (Upside Down Cake)
+- MOTO X Play (XT1562) * Using Android 10 with custom ROM (Unofficially Lineage OS) , Using Android 7.0 with Stock ROM (Android Nougat)
+- SAMSUNG GALAXY J7 PRO * Using Adnroid 9 (Pie) 
+- SAMSUNG GALAXY J2 2016 (SM-J210F) * Using Android 6.0.1 (Marshmallow)
   
 <img width="1920" height="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/main_activity.png"/>
 <img width="1920" height="1080" alt="Screenshot" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/withdraw_activity.png"/>
@@ -46,3 +46,4 @@ You Can support me by buying a coffiee for ₹51/- ✌️
 # Devices Screenshot 
 <img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/update_main_activity_with_balance_fetch_testing.jpg"/> <img width="360" height="640" src="https://github.com/rahulsinghaspqwv/EarningApp_Prototype/blob/main/Megdeal_Earning/updated_register_activity_with_php_backend_testing.jpg"/>
 
+# 
